@@ -1,0 +1,25 @@
+name: tensorflow-api-snap
+version: "1.00"
+summary: Image recognition tensorflow API snap
+description: API for image recognition.
+  Uses JavaFX for capture images from web cam and TensorFlow library for images recognition (http://www.tensorflow.org/).
+confinement: strict
+grade: devel
+
+apps:
+  tensorflow-api-daemond:
+    command: rest_api.py --api-key api-key
+    daemon: simple
+    plugs: [network, network-bind]
+
+parts:
+  tensorflow-pip-python3:
+    plugin: python
+    python-version: python3
+    source: .
+    python-packages: [werkzeug, flask, six, funcsigs, pbr, mock, numpy, appdirs, pyparsing, packaging, setuptools, protobuf, wheel, tensorflow]
+
+  tensorflow-rest-api:
+    plugin: dump
+    source: api
+
