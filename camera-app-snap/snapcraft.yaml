@@ -1,0 +1,30 @@
+name: camera-app
+version: "1.00"
+summary: Image recognition app snap
+description: Application for image recognition.
+  Uses JavaFX for capture images from web cam and TensorFlow library for images recognition (http://www.tensorflow.org/).
+confinement: strict
+grade: devel
+
+apps:
+  camera-app:
+    command: start.sh
+    plugs: [network, network-bind, x11, camera, opengl, home, unity7]
+
+
+parts:
+  camera-java-app:
+    plugin: maven
+    source: https://github.com/dataart-telco/maskbuster-app.git
+    source-type: git
+#    source-branch: mbDesign
+    stage-packages: [openjfx, openjdk-8-jre]
+    after: [desktop-gtk2]
+    install: |
+      cp ../src/application.properties ../install/jar/
+#      sed -i.bak 's/^\(tensorflow_app_server=\).*/\10.0.0.0:5000/' ../install/jar/application.properties
+#      sed -i.bak 's/^\(api_key=\).*/\1123/' ../install/jar/application.properties
+      echo "#!/bin/bash" > ../install/start.sh
+      echo "LD_LIBRARY_PATH='\$SNAP/usr/lib/x86_64-linux-gnu/dri:\$SNAP/usr/lib/jvm/default-java/jre/lib/amd64:\$LD_LIBRARY_PATH'"  >> ../install/start.sh
+      echo "java -jar \$SNAP/jar/camera-app-1.0-SNAPSHOT.jar" >> ../install/start.sh
+      chmod +x ../install/start.sh
