@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from functools import wraps
 from tensorflow.models.image.imagenet import classify_image
@@ -21,9 +21,9 @@ def require_appkey(view_function):
     return decorated_function
 
 def dump(obj):
-    print json.dumps(obj, 
+    print( json.dumps(obj, 
         default=lambda o: o.__dict__, 
-        sort_keys=True, indent=4)
+        sort_keys=True, indent=4))
 
 class ClassifyFlags:
     def __init__ (self):
@@ -95,13 +95,13 @@ def allowed_file(filename):
 @require_appkey
 def api():
     if 'file' not in request.files:
-        print 'No file part'
+        print('No file part')
         return abort(400)
     file = request.files['file']
     # if user does not select file, browser also
     # submit a empty part without filename
     if file.filename == '':
-        print 'No selected file'
+        print ('No selected file')
         return abort(400)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -109,7 +109,7 @@ def api():
         file.save(filePath)
         predictions = recognize_image(filePath)
         return jsonify(predictions)
-    print 'file is None or not allowed file name'
+    print ('file is None or not allowed file name')
     return abort(500)
 
 def print_help():

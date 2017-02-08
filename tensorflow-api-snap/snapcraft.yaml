@@ -8,7 +8,7 @@ grade: devel
 
 apps:
   tensorflow-api-daemond:
-    command: rest_api.py --api-key api-key
+    command: python3 $SNAP/rest_api.py --api-key api-key
     daemon: simple
     plugs: [network, network-bind]
 
