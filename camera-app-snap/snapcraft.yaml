@@ -16,7 +16,7 @@ parts:
     plugin: maven
     source: https://github.com/dataart-telco/maskbuster-app.git
     source-type: git
-    stage-packages: [openjfx, openjdk-8-jre]
+    stage-packages: [openjdk-8-jre, openjfx, libv4l-dev]
     after: [desktop-gtk2]
     install: |
       cp ../src/application.properties ../install/jar/
