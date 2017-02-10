@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 from functools import wraps
 from tensorflow.models.image.imagenet import classify_image
@@ -27,7 +27,7 @@ def dump(obj):
 
 class ClassifyFlags:
     def __init__ (self):
-        self.model_dir = '/tmp/imagenet'
+        self.model_dir = os.path.dirname( os.path.realpath( __file__ ) )
         self.image_file = ''
         self.num_top_predictions = 3
 
@@ -46,7 +46,7 @@ classify_image.FLAGS = ClassifyFlags()
 
 dump(classify_image.FLAGS)
 
-classify_image.maybe_download_and_extract()
+#classify_image.maybe_download_and_extract()
 classify_image.create_graph()
 
 UPLOAD_FOLDER = '/tmp'

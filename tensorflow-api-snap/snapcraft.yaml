@@ -8,14 +8,14 @@ grade: devel
 
 apps:
   tensorflow-api-daemond:
-    command: python3 $SNAP/rest_api.py --api-key api-key
+    command: python2 $SNAP/rest_api.py --api-key api-key
     daemon: simple
     plugs: [network, network-bind]
 
 parts:
   tensorflow-pip-python3:
     plugin: python
-    python-version: python3
+    python-version: python2
     source: .
     python-packages: [werkzeug, flask, six, funcsigs, pbr, mock, numpy, appdirs, pyparsing, packaging, setuptools, protobuf, wheel, tensorflow]
 
@@ -23,3 +23,10 @@ parts:
     plugin: dump
     source: api
 
+  imagenet-data:
+    plugin: dump
+    source: imagenet
+    filesets:
+      imagenet: [classify_image_graph_def.pb, -cropped_panda.jpg, imagenet_2012_challenge_label_map_proto.pbtxt, imagenet_synset_to_human_label_map.txt, LICENSE]
+#    organize:
+#      $imagenet: imagenet/
