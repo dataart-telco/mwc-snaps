@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Camera App
+Exec=camera-app
+Comment=A sample image recognition application
+Icon=icon
+Terminal=false
+Categories=GTK;Utility;

@@ -1,4 +1,4 @@
-name: tensorflow-api-snap
+name: tensorflow-api
 version: "1.00"
 summary: Image recognition tensorflow API snap
 description: API for image recognition.
@@ -8,7 +8,7 @@ grade: devel
 
 apps:
   tensorflow-api-daemond:
-    command: python2 $SNAP/rest_api.py --api-key api-key
+    command: python2 $SNAP/rest_api.py --api-key 123
     daemon: simple
     plugs: [network, network-bind]
 
