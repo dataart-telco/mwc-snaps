@@ -21,7 +21,7 @@ parts:
     install: |
       cp ../src/application.properties ../install/jar/
       echo "#!/bin/bash" > ../install/start.sh
-      echo "export LD_LIBRARY_PATH=\$SNAP/usr/lib/x86_64-linux-gnu:\$SNAP/usr/lib/x86_64-linux-gnu/dri:\$SNAP/usr/lib/jvm/default-java/jre/lib/amd64:\$LD_LIBRARY_PATH"  >> ../install/start.sh
+      echo "export LD_LIBRARY_PATH=\$SNAP/usr/lib/x86_64-linux-gnu/dri:\$SNAP/usr/lib/jvm/default-java/jre/lib/amd64:\$LD_LIBRARY_PATH"  >> ../install/start.sh
       echo "cd \$SNAP/jar" >> ../install/start.sh
       echo "java -jar \$SNAP/jar/camera-app-1.0-SNAPSHOT.jar" >> ../install/start.sh
       chmod +x ../install/start.sh
