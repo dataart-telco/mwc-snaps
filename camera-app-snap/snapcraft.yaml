@@ -3,7 +3,7 @@ version: "1.00"
 summary: Image recognition app snap
 description: Application for image recognition.
   Uses JavaFX for capture images from web cam and TensorFlow library for images recognition (http://www.tensorflow.org/).
-confinement: strict
+confinement: devmode
 grade: devel
 
 apps:

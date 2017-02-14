@@ -1,8 +1,9 @@
 [Desktop Entry]
+Version=0.1
 Type=Application
 Name=Camera App
-Exec=camera-app
 Comment=A sample image recognition application
-Icon=icon
+Exec=camera-app
+Icon=${SNAP}/meta/gui/icon.svg
 Terminal=false
-Categories=GTK;Utility;
+Categories=GTK;Utility;Application
