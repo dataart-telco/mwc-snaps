@@ -23,8 +23,10 @@ parts:
       sed -i.bak 's/^\(tensorflow_app_server=\).*/\10.0.0.0:5000/' ../install/jar/application.properties
       sed -i 's/^\(tensorflow_app_api_key=\).*/\1123/' ../install/jar/application.properties
       sed -i 's/^\(image_path=\).*/\1\/tmp\/camera-app/' ../install/jar/application.properties
+      cp ../src/log4j.properties ../install/jar/
+      sed -i 's/^\(log4j\.appender\.file\.File=\).*/\1${SNAP_USER_DATA}\/camera.log/' ../install/jar/log4j.properties
       echo "#!/bin/bash" > ../install/start.sh
       echo "export LD_LIBRARY_PATH=\$SNAP/usr/lib/x86_64-linux-gnu/dri:\$SNAP/usr/lib/jvm/default-java/jre/lib/amd64:\$LD_LIBRARY_PATH"  >> ../install/start.sh
       echo "cd \$SNAP/jar" >> ../install/start.sh
-      echo "java -jar \$SNAP/jar/camera-app-1.0-SNAPSHOT.jar" >> ../install/start.sh
+      echo "java -DSNAP_USER_DATA=\$SNAP_USER_DATA -Dlog4j.configuration=file:\$SNAP/jar/log4j.properties -jar \$SNAP/jar/camera-app-1.0-SNAPSHOT.jar" >> ../install/start.sh
       chmod +x ../install/start.sh
