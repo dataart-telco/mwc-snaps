@@ -17,7 +17,7 @@ parts:
     plugin: python
     python-version: python2
     source: .
-    python-packages: [werkzeug==0.11.15, flask==0.12, tensorflow==0.12.1]
+    python-packages: [werkzeug==0.11.15, flask==0.12, flask-cors==3.0.2, tensorflow==0.12.1]
 
   tensorflow-rest-api:
     plugin: dump
