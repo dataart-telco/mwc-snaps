@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=0.1
+Type=Application
+Name=Maskburster
+Comment=A sample node.js based image recognition application
+Exec=maskburster
+Icon=${SNAP}/meta/gui/icon.png
+Terminal=false
+Categories=GTK;Utility;Application

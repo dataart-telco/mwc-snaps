@@ -27,9 +27,9 @@ parts:
     node-engine: "7.5.0"
     stage-packages: [openjdk-8-jre, openjfx, libv4l-dev]
     after: [desktop-gtk2]
-    install: |
-      echo "#!/bin/bash" > ../install/start.sh
-      echo "export LD_LIBRARY_PATH=\$SNAP/usr/lib/x86_64-linux-gnu/dri:\$LD_LIBRARY_PATH"  >> ../install/start.sh
-      echo "\$SNAP/bin/maskburster \$SNAP/lib/node_modules/maskburster/" >> ../install/start.sh
-      chmod +x ../install/start.sh
+
+  local-files:
+    plugin: dump
+    source: .
+    prime: [js_src/js/config.js, start.sh]
 
