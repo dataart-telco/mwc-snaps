@@ -1,0 +1,39 @@
+{
+  "name": "maskburster",
+  "version": "0.1.0",
+  "main": "main.js",
+  "description": "mwc-demo",
+  "author": "Ruslan Serkin",
+  "devDependencies": {
+    "electron": "^1.4.15",
+    "electron-packager": "^8.5.1"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "moment": "^2.17.1",
+    "webcamjs": "^1.0.18",
+    "electron": "^1.4.15",
+    "electron-packager": "^8.5.1"
+  },
+  "build": {
+    "deb": {
+      "synopsis": "mwc-deno",
+      "priority": "optional"
+    },
+    "appId": "firefly1111",
+    "linux": {
+      "category": "Education",
+      "packageCategory": "Education",
+      "description": "mwc-demo",
+      "target": "deb",
+      "executableName": "mwcDemo"
+    },
+    "mac": {
+      "category": "firefly.mwc.demo"
+    },
+    "win": {
+      "iconUrl": ""
+    }
+  },
+  "bin": "./node_modules/electron/cli.js"
+}

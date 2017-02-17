@@ -1,0 +1,258 @@
+﻿@font-face {
+    font-family: 'LatoBold';
+    src: url('../fonts/Lato-Bold.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Lato-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/Lato-Bold.woff2') format('woff2'), /* Modern Browsers */
+    url('../fonts/Lato-Bold.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/Lato-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Lato-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/Lato-Regular.woff2') format('woff2'), /* Modern Browsers */
+    url('../fonts/Lato-Regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/Lato-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'LatoSemibold';
+    src: url('../fonts/Lato-Semibold.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Lato-Semibold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/Lato-Semibold.woff2') format('woff2'), /* Modern Browsers */
+    url('../fonts/Lato-Semibold.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/Lato-Semibold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'LatoLight';
+    src: url('../fonts/Lato-Light.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Lato-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/Lato-Light.woff2') format('woff2'), /* Modern Browsers */
+    url('../fonts/Lato-Light.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/Lato-Light.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    font-family: 'Lato', Arial;
+    background-color: #060918;
+    min-width: 1100px;
+}
+.h_100 {
+    height: 100%;
+}
+.h_custom {
+    height: calc(100% - 156px);
+}
+.pos_rel {
+    position: relative;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.dataart_logo {
+    width: 130px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 118px;
+    height: 17px;
+    margin: 10px 0 7px;
+    background: url(../imgs/dataart-logo-blue.png) 0 0 no-repeat;
+    background-size: 118px 17px;
+}
+.mask_color .dataart_logo {
+    background-image: url(../imgs/dataart-logo-red.png);
+}
+.app_name {
+    font-family: 'LatoBold';
+    font-size: 20px;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 11px 0 7px 10px;
+}
+.mask_color {
+    background-color: #7c0504;
+}
+.mask_frame {
+    border: 15px solid rgba(7,23,28,0.62);
+    border-top-width: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.mask_color .mask_frame {
+    border-color: rgba(201,3,1,1);
+}
+
+#video{
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center;
+    position: relative;
+}
+#video > video {
+    width: 100% !important;
+    height: 100% !important;
+}
+#photos, #logs {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #12212f;
+}
+.mask_color #photos, .mask_color #logs {
+    background: #431219;
+}
+.preview_item {
+    padding: 8px;
+    background: #12212f;
+    color: #fff;
+    opacity: 0.75;
+    filter: alpha(opacity=75);
+    margin-bottom: 10px;
+}
+.mask_color .preview_item {
+    background: #431219;
+}
+.preview_item.active {
+    background: #7c0504;
+    color: #dfeeae;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.mask_color .preview_item.active {
+    background: #c90301;
+}
+.preview_item.active svg #icon-camera {
+    fill: #dfeeae!important;
+}
+.photo_wrapper {
+    margin-bottom: 8px;
+}
+.desc_wrapper .icon_camera {
+    margin-right: 4px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.camera_wrapper {
+    font-family: 'LatoBold';
+    font-size: 40px;
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    right: 15px;
+    top: 4px;
+    line-height: 1;
+}
+.camera_wrapper .icon_camera {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 15px;
+    background: transparent;
+    padding: 6px 6px 4px;
+    position: relative;
+    right: -4px;
+    top: -4px;
+}
+.camera_wrapper .icon_camera.active {
+    background: #ff3230;
+}
+.call_block, .desc_block {
+    display: none;
+}
+.mask_color .call_block, .mask_color .desc_block {
+    display: inline-block;
+}
+.info_block {
+    padding: 13px 18px 9px;
+    position: relative;
+}
+.mask_color .info_block {
+    background: #c90301;
+    font-family: 'LatoSemibold';
+    font-size: 43px;
+    letter-spacing: 0.6px;
+    color: #ffffff;
+}
+.time_block {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    font-family: 'LatoLight';
+    font-weight: 300;
+    font-size: 48px;
+    letter-spacing: 1.2px;
+    color: #91dbf8;
+}
+.mask_color .time_block {
+    top: -5px;
+    font-size: 24px;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+}
+.mask_color .call_block {
+    font-family: 'LatoSemibold';
+    font-size: 30px;
+    letter-spacing: -0.1px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+.mask_color .phone_block {
+    font-family: 'LatoLight';
+    font-size: 26px;
+    margin-left: 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.nav_tabs {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+}
+.nav_tabs li {
+    margin-right: 20px;
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    opacity: 0.75;
+    filter: alpha(opacity=75);
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 1.25;
+    cursor: pointer;
+}
+.nav_tabs li.active {
+    font-weight: 900;
+    border-bottom: 3px solid #fff;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
