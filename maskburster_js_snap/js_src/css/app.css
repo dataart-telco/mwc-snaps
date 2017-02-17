@@ -178,10 +178,10 @@ img {
 .camera_wrapper .icon_camera.active {
     background: #ff3230;
 }
-.call_block, .desc_block {
+.call_block > span, .desc_block {
     display: none;
 }
-.mask_color .call_block, .mask_color .desc_block {
+.mask_color .call_block > span, .mask_color .desc_block {
     display: inline-block;
 }
 .info_block {
@@ -254,5 +254,51 @@ img {
     border-bottom: 3px solid #fff;
     opacity: 1;
     filter: alpha(opacity=100);
+}
+.log_item {
+    font-size: 16px;
+    color: #458ba8;
+    padding: 12px 15px;
+    border-left: 3px solid transparent;
+}
+.log_desc {
+    color: #fff;
+}
+.log_item.active {
+    background: #7c0504;
+    color: #e85467;
+    border-left-color: #c90301;
+}
+.mask_color .log_item.active {
+    background: #b70503;
+}
+.log_item.active .log_desc {
+    font-family: 'LatoBold';
+}
+.settings_block {
+    position: relative;
+}
+.settings_block .icon_settings {
+    position: absolute;
+    top: 26px;
+    right: 30px;
+    background: url(../imgs/icon-settings-blue.png) 0 0 no-repeat;
+    background-size: 36px 37px;
+    display: block;
+    z-index: 1;
+    cursor: pointer;
+    width: 36px;
+    height: 37px;
+}
+.mask_color .settings_block .icon_settings {
+    background-image: url(../imgs/icon-settings-red.png);
+}
+.settings_block .icon_settings:active, .settings_block .icon_settings:hover, .settings_block .icon_settings:focus, .settings_block .icon_settings.active {
+    top: 11px;
+    right: 15px;
+    background: url(../imgs/icon-settings-cliked.png) 0 0 no-repeat;
+    background-size: 67px 67px;
+    width: 67px;
+    height: 67px;
 }
 

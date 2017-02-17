@@ -1,7 +1,8 @@
 const electron = require('electron')
 const fs = require("fs")
-const app = electron.app
+const app = electron.app;
 const BrowserWindow = electron.BrowserWindow
+const logger = require("winston");
 
 let mainWindow;
 
@@ -9,11 +10,17 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({width: 1645, height: 1100});
-
+    let configPath  = process.env.SNAP_USER_DATA||`${__dirname}/js`;
     mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+    logger.add(logger.transports.File, { filename: configPath+"/app.log" });
+
+
+    global.logger = logger;
+
     function load_js() {
-        let configFile  = process.env.SNAP_USER_DATA||`${__dirname}/js`;
-        const config = fs.readFileSync(configFile+"/config.js").toString();
+
+        const config = fs.readFileSync(configPath+"/config.js").toString();
         const app = fs.readFileSync(`${__dirname}/js/app.js`).toString();
         mainWindow.webContents.executeJavaScript(config);
         mainWindow.webContents.executeJavaScript(app);
