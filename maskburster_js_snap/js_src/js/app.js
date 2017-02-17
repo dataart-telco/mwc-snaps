@@ -1,9 +1,24 @@
 "use strict";
 
-let WebCamera = require("webcamjs");
-let axios = require("axios");
-let moment = require("moment");
+const WebCamera = require("webcamjs");
+const axios = require("axios");
+const moment = require("moment");
 
+const remote = require('electron').remote;
+const _logger = remote.getGlobal('logger');
+
+const logger={
+    info:function(msg){
+        let req = msg.request;
+        let conf  = msg.config;
+        let time =  moment().format("DD/MMM/YYYY HH:mm:ss");
+        _logger.info(time + " - " + conf.method.toLocaleUpperCase() + " - " + conf.url + " - " + req.status + " - " + req.statusText)
+    },
+    error:function(url, msg){
+        let time =  moment().format("DD/MMM/YYYY HH:mm:ss");
+        _logger.error(time + " - " + url +" - "+ msg.toString().split("\n")[0])
+    }
+};
 
 let currentTime = moment().format("HH:mm:ss");
 
@@ -25,13 +40,14 @@ function setCameraLight() {
 function turnOnSiren() {
     let config = {headers: CONFIG.SIREN.HEADERS};
 
-    axios.post(CONFIG.SIREN.SERVER + "/api/pwm/control", CONFIG.SIREN.BODY, config)
+    axios.post(CONFIG.SIREN.SERVER, CONFIG.SIREN.BODY, config)
         .then(function (res) {
-            writeLog("Flashlight was turned on!")
-            console.log(res)
+            writeLog("Flashlight was turned on!");
+            logger.info(res);
         })
-        .catch(function () {
+        .catch(function (err) {
             writeLog("Problem with flashlight", true)
+            logger.error(CONFIG.SIREN.SERVER, err);
         })
 }
 
@@ -49,10 +65,12 @@ function callRestcom() {
     axios.post(CONFIG.RESTCOM.SERVER, form.join("&"), config)
         .then(function (res) {
             writeLog("Call to police!");
-            console.log(res)
+            logger.info(res);
         })
-        .catch(function () {
+        .catch(function (err) {
+
             writeLog("Problem with call to police!", true)
+            logger.error(CONFIG.RESTCOM.SERVER, err)
         })
 }
 
@@ -60,10 +78,13 @@ function sendToSalesForce() {
     let config = {headers: CONFIG.SALESFORCE.HEADERS};
     axios.post(CONFIG.SALESFORCE.SERVER, CONFIG.SALESFORCE.BODY, config)
         .then(function (res) {
+
             writeLog("Write to SalesForce!");
-            console.log(res)
-        }).catch(function () {
+            logger.info(res)
+        }).catch(function (err) {
+
         writeLog("Problem with write to SalesForce!",  true);
+        logger.error(CONFIG.SALESFORCE.SERVER, err)
     })
 }
 
@@ -156,6 +177,7 @@ function snap() {
 
         axios.post(CONFIG.SERVER, form, config)
             .then(function (res) {
+                logger.info(res)
                 let mask = false;
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].name == CONFIG.NAME_MASK && res.data[i].score > CONFIG.ACCURACY) {
@@ -172,10 +194,11 @@ function snap() {
 
                 snap()
             })
-            .catch(function () {
+            .catch(function (err) {
+                logger.error(CONFIG.SERVER, err);
                 writeLog("Problem with recognition server!", true);
                 snap()
-            })
+            });
     })
 }
 
