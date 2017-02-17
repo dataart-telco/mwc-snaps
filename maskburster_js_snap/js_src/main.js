@@ -11,6 +11,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({width: 1645, height: 1100});
 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
+
     function load_js() {
         let configFile  = process.env.SNAP_USER_DATA||`${__dirname}/js`;
         const config = fs.readFileSync(configFile+"/config.js").toString();

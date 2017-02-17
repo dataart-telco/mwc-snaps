@@ -27,7 +27,11 @@ function turnOnSiren() {
 
     axios.post(CONFIG.SIREN.SERVER + "/api/pwm/control", CONFIG.SIREN.BODY, config)
         .then(function (res) {
+            writeLog("Flashlight was turned on!")
             console.log(res)
+        })
+        .catch(function () {
+            writeLog("Problem with flashlight", true)
         })
 }
 
@@ -40,11 +44,15 @@ function callRestcom() {
     };
     let form = []
     for (let k in CONFIG.RESTCOM.FORM) {
-        form.push(k+"="+CONFIG.RESTCOM.FORM[k])
+        form.push(k + "=" + CONFIG.RESTCOM.FORM[k])
     }
     axios.post(CONFIG.RESTCOM.SERVER, form.join("&"), config)
         .then(function (res) {
+            writeLog("Call to police!");
             console.log(res)
+        })
+        .catch(function () {
+            writeLog("Problem with call to police!", true)
         })
 }
 
@@ -52,8 +60,11 @@ function sendToSalesForce() {
     let config = {headers: CONFIG.SALESFORCE.HEADERS};
     axios.post(CONFIG.SALESFORCE.SERVER, CONFIG.SALESFORCE.BODY, config)
         .then(function (res) {
+            writeLog("Write to SalesForce!");
             console.log(res)
-        })
+        }).catch(function () {
+        writeLog("Problem with write to SalesForce!",  true);
+    })
 }
 
 function maskIsFound() {
@@ -116,11 +127,23 @@ function renderImage(data, time) {
                                     <span></span>
                                 </div>
                             </div>`;
-    wrap.appendChild(photo);
+    wrap.insertBefore(photo,wrap.childNodes[0])
+
 }
 
-function writeLog() {
-
+function writeLog(text, error=false) {
+    let time = moment().format("HH:mm:ss");
+    let wrap = document.getElementById("logs");
+    let log = document.createElement("div");
+    log.className = error?"log_item active":"log_item";
+    log.innerHTML = `<div class="row">
+                                <div class="col-sm-6">${time}</div>
+                                <div class="col-sm-6"></div>
+                            </div>
+                            <div class="row log_desc">
+                                <div class="col-sm-12">${text}</div>
+                            </div>`;
+    wrap.insertBefore(log,wrap.childNodes[0])
 }
 
 function snap() {
@@ -137,6 +160,7 @@ function snap() {
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].name == CONFIG.NAME_MASK && res.data[i].score > CONFIG.ACCURACY) {
                         maskIsFound();
+                        writeLog("Mask found!");
                         renderImage(data, time);
                         mask = true
                     }
@@ -147,10 +171,28 @@ function snap() {
                 }
 
                 snap()
-            });
-
+            })
+            .catch(function () {
+                writeLog("Problem with recognition server!", true);
+                snap()
+            })
     })
 }
+
+window.document.getElementById("logs_tab").addEventListener("click", function () {
+    window.document.getElementById("capture_tab").className = "";
+    window.document.getElementById("logs_tab").className = "active";
+    window.document.getElementById("logs").style.display = "block";
+    window.document.getElementById("photos").style.display = "none";
+
+})
+
+window.document.getElementById("capture_tab").addEventListener("click", function () {
+    window.document.getElementById("capture_tab").className = "active";
+    window.document.getElementById("logs_tab").className = "";
+    window.document.getElementById("photos").style.display = "block";
+    window.document.getElementById("logs").style.display = "none";
+})
 
 
 setTime();
