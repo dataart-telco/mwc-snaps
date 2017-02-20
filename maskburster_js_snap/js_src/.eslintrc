@@ -1,0 +1,21 @@
+{
+  "extends": "airbnb",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+    },
+    "sourceType": "script"
+  },
+  "globals": {
+    "window":true,
+    "document":true,
+    "CONFIG":true,
+    "navigator":true
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  }
+}
