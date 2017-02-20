@@ -1,7 +1,7 @@
 ## Maskburster JS client app
 Used for ski-mask detection and alerts generation.
+
 Utilizes [Tesnsorflow  API](https://github.com/dataart-telco/mwc-snaps/tree/master/tensorflow-api-snap) for image classifying.
-.
 ### Build
 Get the sources:
 ```
@@ -32,13 +32,14 @@ maskburster     0.1      x1               devmode
 ```
 - Connect and print application snap environment:
 ```
-subo snap run --shell maskburster
+sudo snap run --shell maskburster
 env | grep SNAP
 exit
 ```
 - Validate application config and log files: 
 ```
-subo snap run --shell maskburster
+sudo snap run --shell maskburster
 cat ${SNAP_USER_DATA}/config.js
 less ${SNAP_USER_DATA}/app.log
+exit
 ```
