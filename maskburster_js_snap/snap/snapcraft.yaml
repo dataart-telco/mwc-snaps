@@ -28,8 +28,15 @@ parts:
     stage-packages: [openjdk-8-jre, openjfx, libv4l-dev]
     after: [desktop-gtk2]
 
+  config-tmplates:
+    plugin: dump
+    source: https://github.com/dataart-telco/mwc-snaps.git
+    source-type: git
+    filesets:
+      configs: [maskburster_js_snap/js_src/js/config.js]
+
   local-files:
     plugin: dump
     source: .
-    prime: [js_src/js/config.js, start.sh]
+    prime: [config.js.override, start.sh]
 
