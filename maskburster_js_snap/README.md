@@ -1,6 +1,6 @@
 ## Maskburster JS client app
-Used for ski-mask detection and alerts generation
-Utilize [Tesnsorflow  API](https://github.com/dataart-telco/mwc-snaps/tree/master/tensorflow-api-snap) for image classifying.
+Used for ski-mask detection and alerts generation.
+Utilizes [Tesnsorflow  API](https://github.com/dataart-telco/mwc-snaps/tree/master/tensorflow-api-snap) for image classifying.
 .
 ### Build
 Get the sources:
@@ -22,7 +22,7 @@ To launch app just type in command prompt:
 ```
 maskburster
 ```
-or in UI Open Unity Dash search and search for `Maskburster` app.
+or in UI Open Unity Dash and search for `Maskburster` app.
 ### Troubleshooting
 - Validate that maskburster snap installed:
 ```
