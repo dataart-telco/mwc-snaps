@@ -4,6 +4,6 @@ Type=Application
 Name=Camera App
 Comment=A sample image recognition application
 Exec=camera-app
-Icon=${SNAP}/meta/gui/icon.svg
+Icon=${SNAP}/meta/gui/icon.png
 Terminal=false
 Categories=GTK;Utility;Application

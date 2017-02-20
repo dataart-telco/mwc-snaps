@@ -8,6 +8,7 @@ import json
 import os
 import numpy
 import sys, getopt
+from flask_cors import CORS
 
 # The actual decorator function
 def require_appkey(view_function):
@@ -53,6 +54,7 @@ UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
+CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.json_encoder = CustomJSONEncoder
 

@@ -2,14 +2,14 @@
 # One time handler to create config file.
 if [ ! -f $SNAP_USER_DATA/config.js ]
 then
-  if [[ -f $SNAP/js_src/js/config.js && -r $SNAP/js_src/js/config.js ]]
+  if [[ -f $SNAP/config.js.override && -r $SNAP/config.js.override ]]
   then
     echo "Copying config from SNAP dir"
-    cp $SNAP/js_src/js/config.js $SNAP_USER_DATA/
-  elif [[ -f $SNAP/config.js.template && -r $SNAP/config.js.template ]]
+    cp $SNAP/config.js.override $SNAP_USER_DATA/config.js
+  elif [[ -f $SNAP/js_src/js//config.js && -r $SNAP/js_src/js/config.js ]]
   then
-    echo "Copying config from template."
-    cp $SNAP/config.js.template $SNAP_USER_DATA/config.js
+    echo "Copying config from template. You MUST fill it in with valid parameters"
+    cp $SNAP/js_src/js/config.js $SNAP_USER_DATA/config.js
   else
     echo "Cannot create config file in $SNAP_USER_DATA"
     exit 1
