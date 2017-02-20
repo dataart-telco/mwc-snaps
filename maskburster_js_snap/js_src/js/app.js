@@ -9,14 +9,14 @@ const _logger = remote.getGlobal('logger');
 
 const logger = {
   info: function (msg) {
-    let req = msg.request;
-    let conf = msg.config;
-    let time = moment().format('DD/MMM/YYYY HH:mm:ss');
-    _logger.info(time + ' - ' + conf.method.toLocaleUpperCase() + ' - ' + conf.url + ' - ' + req.status + ' - ' + req.statusText)
+    const req = msg.request;
+    const conf = msg.config;
+    const time = moment().format('DD/MMM/YYYY HH:mm:ss');
+    _logger.info(time + ' - ' + conf.method.toLocaleUpperCase() + ' - ' + conf.url + ' - ' + req.status + ' - ' + req.statusText);
   },
   error: function (url, msg) {
-    let time = moment().format('DD/MMM/YYYY HH:mm:ss');
-    _logger.error(time + ' - ' + url + ' - ' + msg.toString().split('\n')[0])
+    const time = moment().format('DD/MMM/YYYY HH:mm:ss');
+    _logger.error(time + ' - ' + url + ' - ' + msg.toString().split('\n')[0]);
   }
 };
 
@@ -39,20 +39,22 @@ function setCameraLight() {
 }
 
 function turnOnSiren() {
-  let config = {headers: CONFIG.SIREN.HEADERS};
-  CONFIG.SIREN.SERVER.forEach(function (el) {
+  const config = {
+    headers: CONFIG.SIREN.HEADERS,
+  };
+  CONFIG.SIREN.SERVER.forEach((el) => {
     axios.post(el, CONFIG.SIREN.BODY, config)
-      .then(function (res) {
+      .then( (res) => {
         writeLog('Flashlight was turned on!');
         logger.info(res);
       })
-      .catch(function (err) {
+      .catch( (err) => {
         writeLog('Problem with flashlight', true);
         logger.error(el, err);
-      })
-  })
+      });
+  });
 
-}
+};
 
 function callRestcom() {
   let config = {

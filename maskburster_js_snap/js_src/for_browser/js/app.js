@@ -8,104 +8,107 @@ let WebCamera = Webcam;
 let currentTime = moment().format("HH:mm:ss");
 
 function setTime() {
-    document.getElementsByClassName("time_block")[0].innerHTML = currentTime;
-    setTimeout(function () {
-        currentTime = moment().format("HH:mm:ss")
-        setTime()
-    }, 1000)
+  document.getElementsByClassName("time_block")[0].innerHTML = currentTime;
+  setTimeout(function () {
+    currentTime = moment().format("HH:mm:ss")
+    setTime()
+  }, 1000)
 }
 
 function setCameraLight() {
-    document.getElementsByClassName("icon_camera")[0].className = "icon_camera active";
-    setTimeout(function () {
-        document.getElementsByClassName("icon_camera")[0].className = "icon_camera"
-    }, 1000)
+  document.getElementsByClassName("icon_camera")[0].className = "icon_camera active";
+  setTimeout(function () {
+    document.getElementsByClassName("icon_camera")[0].className = "icon_camera"
+  }, 1000)
 }
 
 function turnOnSiren() {
-    let config = {headers: CONFIG.SIREN.HEADERS};
+  let config = {headers: CONFIG.SIREN.HEADERS};
 
-    axios.post(CONFIG.SIREN.SERVER + "/api/pwm/control", CONFIG.SIREN.BODY, config)
-        .then(function (res) {
-            writeLog("Flashlight was turned on!")
-            console.log(res)
-        })
-        .catch(function () {
-            writeLog("Problem with flashlight", true)
-        })
+  CONFIG.SIREN.SERVER.forEach((el) => {
+    axios.post(el, CONFIG.SIREN.BODY, config)
+      .then( (res) => {
+        writeLog('Flashlight was turned on!');
+        logger.info(res);
+      })
+      .catch( (err) => {
+        writeLog('Problem with flashlight', true);
+        logger.error(el, err);
+      });
+  });
 }
 
 function callRestcom() {
-    let config = {
-        headers: {
-            "Authorization": "Basic " + btoa(CONFIG.RESTCOM.BASIC.USER + ":" + CONFIG.RESTCOM.BASIC.PASS),
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    };
-    let form = []
-    for (let k in CONFIG.RESTCOM.FORM) {
-        form.push(k + "=" + CONFIG.RESTCOM.FORM[k])
+  let config = {
+    headers: {
+      "Authorization": "Basic " + btoa(CONFIG.RESTCOM.BASIC.USER + ":" + CONFIG.RESTCOM.BASIC.PASS),
+      "Content-Type": "application/x-www-form-urlencoded"
     }
-    axios.post(CONFIG.RESTCOM.SERVER, form.join("&"), config)
-        .then(function (res) {
-            writeLog("Call to police!");
-            console.log(res)
-        })
-        .catch(function () {
-            writeLog("Problem with call to police!", true)
-        })
-}
-
-function sendToSalesForce() {
-    let config = {headers: CONFIG.SALESFORCE.HEADERS};
-    axios.post(CONFIG.SALESFORCE.SERVER, CONFIG.SALESFORCE.BODY, config)
-        .then(function (res) {
-            writeLog("Write to SalesForce!");
-            console.log(res)
-        }).catch(function () {
-        writeLog("Problem with write to SalesForce!",  true);
+  };
+  let form = []
+  for (let k in CONFIG.RESTCOM.FORM) {
+    form.push(k + "=" + CONFIG.RESTCOM.FORM[k])
+  }
+  axios.post(CONFIG.RESTCOM.SERVER, form.join("&"), config)
+    .then(function (res) {
+      writeLog("Call to police!");
+      console.log(res)
+    })
+    .catch(function () {
+      writeLog("Problem with call to police!", true)
     })
 }
 
+function sendToSalesForce() {
+  let config = {headers: CONFIG.SALESFORCE.HEADERS};
+  axios.post(CONFIG.SALESFORCE.SERVER, CONFIG.SALESFORCE.BODY, config)
+    .then(function (res) {
+      writeLog("Write to SalesForce!");
+      console.log(res)
+    }).catch(function () {
+    writeLog("Problem with write to SalesForce!", true);
+  })
+}
+
 function maskIsFound() {
-    if (document.getElementsByTagName("body")[0].className != "mask_color") {
-        document.getElementsByTagName("body")[0].className = "mask_color";
-        turnOnSiren();
-        callRestcom();
-        sendToSalesForce();
-    }
+  if (document.getElementsByTagName("body")[0].className != "mask_color") {
+    document.getElementsByTagName("body")[0].className = "mask_color";
+    turnOnSiren();
+    callRestcom();
+    sendToSalesForce();
+  }
 
 
 }
 
 
 function maskIsGone() {
-    document.getElementsByTagName("body")[0].className = ""
+  document.getElementsByTagName("body")[0].className = ""
 }
 
 function createFromForSend(data) {
-    let form_elem_name = "file";
-    let image_fmt = '';
-    if (data.match(/^data\:image\/(\w+)/)) {
-        image_fmt = RegExp.$1;
-    }
-    else {
-        throw "Cannot locate image format in Data URI";
-    }
-    let raw_image_data = data.replace(/^data\:image\/\w+\;base64\,/, '');
-    let blob = new Blob([WebCamera.base64DecToArr(raw_image_data)], {type: 'image/' + image_fmt});
-    let form = new FormData();
+  let form_elem_name = "file";
+  let image_fmt = '';
+  if (data.match(/^data\:image\/(\w+)/)) {
+    image_fmt = RegExp.$1;
+  }
+  else {
+    throw "Cannot locate image format in Data URI";
+  }
+  let raw_image_data = data.replace(/^data\:image\/\w+\;base64\,/, '');
+  let blob = new Blob([WebCamera.base64DecToArr(raw_image_data)], {type: 'image/' + image_fmt});
+  let form = new FormData();
 
-    form.append(form_elem_name, blob, form_elem_name + "." + image_fmt.replace(/e/, ''));
+  form.append(form_elem_name, blob, form_elem_name + "." + image_fmt.replace(/e/, ''));
 
-    return form
+  return form
 }
 
 function renderImage(data, time) {
-    let wrap = document.getElementById("photos");
-    let photo = document.createElement("div");
-    photo.className = "preview_item";
-    photo.innerHTML = ` <div class="photo_wrapper"><img src="${data}" /></div>
+  let wrap = document.getElementById("photos");
+  let photo = document.createElement("div");
+  photo.className = "preview_item";
+  photo.innerHTML = ` <div class="photo_wrapper"><img src="${data}" /></div>
                             <div class="row desc_wrapper">
                                 <div class="col-md-8">
                                     Today, ${time}
@@ -127,85 +130,85 @@ function renderImage(data, time) {
                                     <span></span>
                                 </div>
                             </div>`;
-    wrap.insertBefore(photo,wrap.childNodes[0])
+  wrap.insertBefore(photo, wrap.childNodes[0])
 
 }
 
-function writeLog(text, error=false) {
-    let time = moment().format("HH:mm:ss");
-    let wrap = document.getElementById("logs");
-    let log = document.createElement("div");
-    log.className = error?"log_item active":"log_item";
-    log.innerHTML = `<div class="row">
+function writeLog(text, error = false) {
+  let time = moment().format("HH:mm:ss");
+  let wrap = document.getElementById("logs");
+  let log = document.createElement("div");
+  log.className = error ? "log_item active" : "log_item";
+  log.innerHTML = `<div class="row">
                                 <div class="col-sm-6">${time}</div>
                                 <div class="col-sm-6"></div>
                             </div>
                             <div class="row log_desc">
                                 <div class="col-sm-12">${text}</div>
                             </div>`;
-    wrap.insertBefore(log,wrap.childNodes[0])
+  wrap.insertBefore(log, wrap.childNodes[0])
 }
 
 function snap() {
-    WebCamera.snap(function (data) {
-        setCameraLight()
-        let time = currentTime;
-        let form = createFromForSend(data);
+  WebCamera.snap(function (data) {
+    setCameraLight()
+    let time = currentTime;
+    let form = createFromForSend(data);
 
-        const config = {headers: {"api-key": CONFIG.API_KEY}};
+    const config = {headers: {"api-key": CONFIG.API_KEY}};
 
-        axios.post(CONFIG.SERVER, form, config)
-            .then(function (res) {
-                let mask = false;
-                for (let i = 0; i < res.data.length; i++) {
-                    if (res.data[i].name == CONFIG.NAME_MASK && res.data[i].score > CONFIG.ACCURACY) {
-                        maskIsFound();
-                        writeLog("Mask found!");
-                        renderImage(data, time);
-                        mask = true
-                    }
-                }
+    axios.post(CONFIG.SERVER, form, config)
+      .then(function (res) {
+        let mask = false;
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].name == CONFIG.NAME_MASK && res.data[i].score > CONFIG.ACCURACY) {
+            maskIsFound();
+            writeLog("Mask found!");
+            renderImage(data, time);
+            mask = true
+          }
+        }
 
-                if (!mask) {
-                    maskIsGone()
-                }
+        if (!mask) {
+          maskIsGone()
+        }
 
-                snap()
-            })
-            .catch(function () {
-                writeLog("Problem with recognition server!", true);
-                snap()
-            })
-    })
+        snap()
+      })
+      .catch(function () {
+        writeLog("Problem with recognition server!", true);
+        snap()
+      })
+  })
 }
 
 window.document.getElementById("logs_tab").addEventListener("click", function () {
-    window.document.getElementById("capture_tab").className = "";
-    window.document.getElementById("logs_tab").className = "active";
-    window.document.getElementById("logs").style.display = "block";
-    window.document.getElementById("photos").style.display = "none";
+  window.document.getElementById("capture_tab").className = "";
+  window.document.getElementById("logs_tab").className = "active";
+  window.document.getElementById("logs").style.display = "block";
+  window.document.getElementById("photos").style.display = "none";
 
 })
 
 window.document.getElementById("capture_tab").addEventListener("click", function () {
-    window.document.getElementById("capture_tab").className = "active";
-    window.document.getElementById("logs_tab").className = "";
-    window.document.getElementById("photos").style.display = "block";
-    window.document.getElementById("logs").style.display = "none";
+  window.document.getElementById("capture_tab").className = "active";
+  window.document.getElementById("logs_tab").className = "";
+  window.document.getElementById("photos").style.display = "block";
+  window.document.getElementById("logs").style.display = "none";
 })
 
 
 setTime();
 WebCamera.set({
-    image_format: 'jpeg',
-    jpeg_quality: 90,
-    force_flash: false,
-    flip_horiz: true,
-    fps: 45
+  image_format: 'jpeg',
+  jpeg_quality: 90,
+  force_flash: false,
+  flip_horiz: true,
+  fps: 45
 });
 WebCamera.attach('#video');
 WebCamera.on('load', function () {
-    snap();
-    console.log("The camera has been started")
+  snap();
+  console.log("The camera has been started")
 });
 ;
