@@ -1,4 +1,5 @@
-
+## Tensorflow API
+REST API for tensorflow library with imagenet model.
 ### Build
 Get the sources:
 ```
@@ -10,12 +11,12 @@ Build the snap:
  snapcraft
 ```
 ### Install
-To install API snap:
+To install snap:
 ```
  sudo snap install --dangerous --devmode tensorflow-api_1.00_amd64.snap
 ```
 ### Troubleshooting
-- First validate that tensorflow-ap snap installed:
+- First validate that tensorflow-api snap installed:
 ```
  $ snap list
  tensorflow-api  1.00
