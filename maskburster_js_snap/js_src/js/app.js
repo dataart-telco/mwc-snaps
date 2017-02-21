@@ -107,7 +107,7 @@ function maskIsGone() {
 }
 
 function createFromForSend(data) {
-  let form_elem_name = 'file1';
+  let form_elem_name = 'file';
   let image_fmt = '';
   if (data.match(/^data\:image\/(\w+)/)) {
     image_fmt = RegExp.$1;
