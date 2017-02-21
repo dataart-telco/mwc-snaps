@@ -9,3 +9,5 @@ out
 gen
 /maskburster_js_snap/js_src/node_modules/
 /maskburster_js_snap/js_src/js/app.log
+maskburster_js_snap/js_src/for_browser/js/config.js
+maskburster_js_snap/js_src/js/config.js
