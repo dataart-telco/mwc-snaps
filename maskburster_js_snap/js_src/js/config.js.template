@@ -1,0 +1,49 @@
+ const CONFIG= {
+    API_KEY: "[your_api_key]",
+    SERVER: "http://[host]:[port]/visual-recognition/classify",
+    ACCURACY:0.5,
+    NAME_MASK:"ski mask",
+    SIREN: {
+        SERVER: "http://[host]:[port]/api/pwm/control",
+        HEADERS: {
+            "Authorization": "Bearer [the_key]",
+            "content-type": "application/json"
+
+        },
+        BODY: {
+            "0": "100",
+            "frequency": "1",
+            "count": "3"
+        }
+
+    },
+    RESTCOM: {
+        SERVER: "http://[host]:[port]/restcomm/2012-04-24/Accounts/[account_id]/Calls.json",
+        BASIC: {
+            USER: "[your_user]",
+            PASS: "[pass_for_the_user]"
+        },
+        FORM: {
+            "From": "+16175551212",
+            "To": "client:mwc_demo",
+            "Url": "http://[host]:[port]/restcomm-rvd/services/apps/[application_id]/controller"
+        },
+
+    },
+    SALESFORCE: {
+        SERVER: "https://[host]:[port]/streams/thunderlightningf001/thunderlightningf001/event",
+        BODY: {
+            "guid": "healthcheck123",
+            "asset": "alcove2",
+            "model": "device3",
+            "errorcode": "",
+            "enterprise": "service_unreachable",
+            "objectType": "188888888",
+
+        },
+        HEADERS: {
+            Authorization: "Bearer [the_key]",
+            "content-type": "application/json"
+        }
+    }
+};
