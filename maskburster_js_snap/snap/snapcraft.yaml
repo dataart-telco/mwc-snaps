@@ -31,5 +31,6 @@ parts:
   local-files:
     plugin: dump
     source: .
-    prime: [config.js.override, js_src/js/config.js, start.sh]
+    filesets:
+      files: [config.js.override,js_src/js/config.js.template,start.sh]
 

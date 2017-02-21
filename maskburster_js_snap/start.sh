@@ -6,10 +6,10 @@ then
   then
     echo "Copying config from SNAP dir"
     cp $SNAP/config.js.override $SNAP_USER_DATA/config.js
-  elif [[ -f $SNAP/js_src/js//config.js && -r $SNAP/js_src/js/config.js ]]
+  elif [[ -f $SNAP/js_src/js/config.js.template && -r $SNAP/js_src/js/config.js.template ]]
   then
     echo "Copying config from template. You MUST fill it in with valid parameters"
-    cp $SNAP/js_src/js/config.js $SNAP_USER_DATA/config.js
+    cp $SNAP/js_src/js/config.js.template $SNAP_USER_DATA/config.js
   else
     echo "Cannot create config file in $SNAP_USER_DATA"
     exit 1
