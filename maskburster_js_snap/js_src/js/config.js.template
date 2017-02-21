@@ -4,7 +4,7 @@
     ACCURACY:0.5,
     NAME_MASK:"ski mask",
     SIREN: {
-        SERVER: ["http://[host]:[port]/api/pwm/control", "http://[backup_host]:[port]/api/pwm/control"]
+        SERVER: ["http://[host]:[port]/api/pwm/control", "http://[backup_host]:[port]/api/pwm/control"],
         HEADERS: {
             "Authorization": "Bearer [the_key]",
             "content-type": "application/json"
