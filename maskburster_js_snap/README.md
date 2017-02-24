@@ -7,6 +7,8 @@ Get the sources:
 ```
  git clone https://github.com/dataart-telco/mwc-snaps.git
  ```
+Put real configuration file as config.js.override in root snap folder (maskburster_js_sna).
+
 Build the snap:
 ```
  cd maskburster_js_snap
