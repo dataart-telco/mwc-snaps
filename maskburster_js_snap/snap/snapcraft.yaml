@@ -32,5 +32,6 @@ parts:
     plugin: dump
     source: .
     filesets:
-      files: [config.js.override,js_src/js/config.js.template,start.sh]
+      files: [config.js.override*, js_src/js/config.js.template, start.sh]
+    stage: [$files]
 
